@@ -13,7 +13,9 @@ const createIntern=async (req,res)=>{
     if (Object.keys(data).length == 0) return res.status(400).send({ status: false, msg: "Data is required to add a Intern" });
 
     if(!data.name) return res.status(400).send({ status: false, msg: "Name is required" });
+
     if(!data.email) return res.status(400).send({ status: false, msg: "Email is required" });
+    
     if(!data.mobile) return res.status(400).send({ status: false, msg: "Mobile No. is required" });
     if(!data.collegeId) return res.status(400).send({ status: false, msg: "CollegeId is required" });
     if(validString.test(data.name)) return res.status(400).send({status:false, msg:"Name should not contain numbers"}); 
