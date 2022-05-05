@@ -2,36 +2,48 @@ const internModel=require("../Models/internModel")
 const validateEmail = require('email-validator')
 const mongoose = require('mongoose');
 const collegeModel = require("../Models/collegeModel");
-const isValidObjectId = (ObjectId) => {return mongoose.Types.ObjectId.isValid(ObjectId)};
 
-let validString = /\d/
+
+let validMobile=/^[6-9]\d{9}$/  //validating the mobile number (starting from 6 also considerd)
+let validString = /\d/  //validating the string for numbers
+const isValidObjectId = (ObjectId) => {return mongoose.Types.ObjectId.isValid(ObjectId)} //validating the collegeId is match or not from mongoose 
 
 
 const createIntern=async (req,res)=>{
     try{
     let data =req.body
+    // check body empty or not
     if (Object.keys(data).length == 0) return res.status(400).send({ status: false, msg: "Data is required to add a Intern" });
-
-    if(!data.name) return res.status(400).send({ status: false, msg: "Name is required" });
-
-    if(!data.email) return res.status(400).send({ status: false, msg: "Email is required" });
-    
-    if(!data.mobile) return res.status(400).send({ status: false, msg: "Mobile No. is required" });
-    if(!data.collegeId) return res.status(400).send({ status: false, msg: "CollegeId is required" });
-    if(validString.test(data.name)) return res.status(400).send({status:false, msg:"Name should not contain numbers"}); 
-    if(!isValidObjectId(data.collegeId)) return res.status(400).send({status:false, msg:"Enter a valid collegeId"})
+        // check validation for the required field name,email,mobile,collegeId   
+     if(!data.name)
+     return res.status(400).send({ status: false, msg: "Name is required" }); 
+     if(!data.email) 
+     return res.status(400).send({ status: false, msg: "Email is required" });
+    if(!data.mobile)
+    return res.status(400).send({ status: false, msg: "Mobile No. is required" }); 
+    if(!data.collegeId)
+    return res.status(400).send({ status: false, msg: "CollegeId is required" });
+    if(validString.test(data.name))//validation for the string
+    return res.status(400).send({status:false, msg:"Name should not contain numbers"});     
+    if(!isValidObjectId(data.collegeId))//check whether the given string is valid object id or not
+    return res.status(400).send({status:false, msg:"Enter a valid collegeId"})
+    // getting the college data from the database by using collegeId
     let collegeData = await collegeModel.findById(data.collegeId)
-    if(!collegeData) return res.status(400).send({status:false, msg:"Enter a valid collegeId"})
-    if(!validateEmail.validate(data.email)) return res.status(400).send({ status: false, msg: "Enter a valid email" });
-    let uniqueEmail = await internModel.findOne({ email: data.email });
-    if(uniqueEmail) return res.status(400).send({ status: false, msg: "Email already exist" });
-    if(data.mobile.length !==10) return res.status(400).send({status:false, msg:"Enter a valid mobile number"});
-    if(!validString.test(data.mobile)) return res.status(400).send({status:false, msg:"Number should be a digit"});
-    let uniqueMobile=await internModel.findOne({mobile:data.mobile});
-    if(uniqueMobile) return res.status(400).send({status:false, msg:"Mobile Number already exist"})
+    if(!collegeData) return res.status(400).send({status:false, msg:"Enter a valid collegeId"}) 
+   
+    if(!validateEmail.validate(data.email))// check for the email is valid or not by using email validator package
+     return res.status(400).send({ status: false, msg: "Enter a valid email" });
     
+    let uniqueEmail = await internModel.findOne({ email: data.email });// check email value present in collection or not
+    if(uniqueEmail) return res.status(400).send({ status: false, msg: "Email already exist" });
+    
+    if(!validMobile.test(data.mobile))// check in mobile field validation
+     return res.status(400).send({status:false, msg:"Enter a valid mobile number"});
+    let uniqueMobile=await internModel.findOne({mobile:data.mobile});// check for the mobile no already exist or not 
+    if(uniqueMobile) return res.status(400).send({status:false, msg:"Mobile Number already exist"})
     const result = await internModel.create(data)
-     res.status(201).send({status:true,data:result})
+     res.status(201).send({status:true,data:result})  //create document in Intern collection
+   
     }
     catch(err){
         res.status(500).send({ status: false, msg: err.message });
