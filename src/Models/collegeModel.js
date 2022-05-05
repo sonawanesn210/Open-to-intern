@@ -1,10 +1,10 @@
 const mongoose = require('mongoose')
 
-const collegeSchema = new mongoose.Schema({
+const collegeSchema = new mongoose.Schema({ // creating schema for college model 
     name: {
-        type: String,
-        required: 'name is required',
-        unique: true
+        type: String,//type of data in the field should be string
+        required: 'name is required',//required fields
+        unique: true   //name is unique field
     },
     fullName: {
         type: String,
@@ -18,6 +18,6 @@ const collegeSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     }
-}, { timestamps: true });
+}, { timestamps: true });//timestamps is used to add createdAt and updatedAt fields in the schema 
 
-module.exports = mongoose.model('College', collegeSchema)
+module.exports = mongoose.model('College', collegeSchema) //exporting the schema to use in other files 

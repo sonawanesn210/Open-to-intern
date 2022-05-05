@@ -1,0 +1,41 @@
+{
+    "compileOnSave": false,
+    "compilerOptions": {
+        "baseUrl": "./",
+        "outDir": "./dist",
+        "module": "commonjs",
+        "target": "es6",
+        "declaration": true,
+        "moduleResolution": "node",
+        "lib": [
+            "es6",
+            "es5"
+        ],
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "allowSyntheticDefaultImports": true,
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "allowUmdGlobalAccess": true,
+        "removeComments": false,
+        "strict": true,
+        "esModuleInterop": true,
+        "importHelpers": true,
+        "alwaysStrict": true,
+        "noImplicitAny": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "pretty": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "noImplicitReturns": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "disableSizeLimit": true,
+        "sourceMap": false
+    },
+    "exclude": [
+        "node_modules",
+        "dist"
+    ]
+}

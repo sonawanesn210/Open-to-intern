@@ -1,22 +1,21 @@
 const mongoose=require('mongoose');
 const ObjectId=mongoose.Schema.Types.ObjectId;
-// const validateEmail = require('email-validator');
-const internSchema=new mongoose.Schema({
+
+const internSchema=new mongoose.Schema({// creating schema for intern model
     name:{
         type:String,
-        required:true
+        required:'name is required'
     },
     email:{
         type:String,
-        required:true,
+        required:'email is required',
         unique:true
     },
     mobile:{
         type:String,
-        required:true,
+        required:'mobile number is required',
         unique:true,
-        minlength:10,
-        maxlength:10
+        
     },
     collegeId:{
         type:ObjectId,
@@ -26,6 +25,6 @@ const internSchema=new mongoose.Schema({
         type:Boolean,
         default:false
     }
-},{timestamps:true})
+},{timestamps:true})   //timestamps is used to add createdAt and updatedAt fields in the schema 
 
-module.exports=mongoose.model('Intern',internSchema)
+module.exports=mongoose.model('Intern',internSchema) //exporting the schema to use in other files 

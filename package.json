@@ -23,6 +23,7 @@
     "express": "^4.18.1",
     "lodash": "^4.17.21",
     "mongoose": "^6.3.2",
-    "nodemon": "^2.0.16"
+    "nodemon": "^2.0.16",
+    "validate-mobile-number": "^1.0.0"
   }
 }
