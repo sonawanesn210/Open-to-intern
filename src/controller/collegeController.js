@@ -5,19 +5,22 @@ let validUrl = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\
 const createColleges= async  (req, res) =>{
     try {
         let data = req.body
+      
+
+
         if(Object.keys(data).length === 0)  return res.status(400).send({status:false,message:"Invalid request parameters please provide College details"})  //validating the data for empty values
        //Validation for required fields such as name,fullname,logolink,
         if(!data.name)
             return res.status(400).send({status:false,message:" Name is required"})
 
         if(!data.fullName)
-            return res.status(400).send({status:false,message:"Full name is required"})
+            return res.status(400).send({status:false,message:'Full name is required'})
 
         if(!data.logoLink)
             return res.status(400).send({status:false,message:"logoLink is required"})
         //check whether string contains number in name and full name//check for valid string
         if(validString.test(data.name))
-            return res.status(400).send({status:false,message:'Name should not contain number '})
+            return res.status(400).send({status:false,message:'Name should not contain number'})
         
         if(validString.test(data.fullName))
             return res.status(400).send({status:false,message:'Fullname should not contain number '})
@@ -67,6 +70,10 @@ const collegeDetails = async function(req,res){
 }
 module.exports.createColleges = createColleges
 module.exports.collegeDetails=collegeDetails
+
+
+
+
 //======================================================================================================================//
 //another method for get api
 /* 
@@ -86,6 +93,15 @@ module.exports.collegeDetails=collegeDetails
     delete(details._id);
     details["interests"] = inernDetails;
     res.status(200).send({status:true, data:details})
+
+    //******************************************************* 
+    // delete(collegeId._id)
+    // let interests=await internModel.find({collegeId:getCollegeName._id, isDeleted: false}).select({name:1, email:1, mobile:1})
+    // if(!interests) return res.status(404).send({status:false, msg:"No such intern found"}) 
+    
+    
+    // res.status(200).send({status:true, data:getCollegeName,interests})
+       
 }
 catch(err){
     res.status(500).send({ status: false, msg: err.message });
