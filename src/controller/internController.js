@@ -47,7 +47,7 @@ const createIntern=async (req,res)=>{
 
     let collegeData = await collegeModel.findOne({ name:data.collegeName })
     if (!collegeData) {
-        return res.status(404).send({ status: false, msg: "collegeName invalid" })
+        return res.status(404).send({ status: false, msg: "collegeName is invalid" })
     }
 
     data["collegeId"]=collegeData._id

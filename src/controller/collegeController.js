@@ -39,7 +39,7 @@ const createColleges= async  (req, res) =>{
 
 }
 //===============================3=======================================================//
-const collegeDetails = async function(req,res){
+const collegeDetails = async (req,res)=>{
     try{
        
     let data = req.query.collegeName //getting the data from query
