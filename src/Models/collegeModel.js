@@ -12,7 +12,9 @@ const collegeSchema = new mongoose.Schema({ // creating schema for college model
     },
     logoLink: {
         type: String,
-        require: 'logoLink is required'
+        require: 'logoLink is required',
+        unique:true
+
     },
     isDeleted: {
         type: Boolean,

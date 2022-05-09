@@ -47,7 +47,6 @@ const createIntern = async (req, res) => {
             return res.status(400).send({ status: false, message: "Mobile Number already exist" })
         }
         
-
         let collegeData = await collegeModel.findOne({ name: data.collegeName })
         if (!collegeData) {
             return res.status(404).send({ status: false, message: "collegeName invalid" })
@@ -55,7 +54,7 @@ const createIntern = async (req, res) => {
 
         data["collegeId"] = collegeData._id
        //delete data.collegeName
-
+ 
         const result = await internModel.create(data)
         res.status(201).send({ status: true, data: result })  //create document in Intern collection
 

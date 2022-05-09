@@ -49,7 +49,7 @@ const createColleges = async (req, res) => {
 
 }
 //===============================3=======================================================//
-const collegeDetails = async function (req, res) {
+ const collegeDetails = async function (req, res) {
     try {
 
         let data = req.query.collegeName //getting the data from query
@@ -62,7 +62,7 @@ const collegeDetails = async function (req, res) {
             return res.status(404).send({ status: false, message: "No such college found" })
         }
         //below code is to get internlist from the database that is not deleted with specific values in respose
-        const internList = await internModel.find({ collegeId: getCollege._id, isDeleted: false }).select({ _id: 1, name: 1, email: 1, mobile: 1 });
+        let internList = await internModel.find({ collegeId: getCollege._id, isDeleted: false }).select({ _id: 1, name: 1, email: 1, mobile: 1 });
         if (internList.length != 0) {
             let Data = {
                 name: getCollege.name,
@@ -71,15 +71,28 @@ const collegeDetails = async function (req, res) {
                 interests: internList
             }
             //console.log(internList.length)
+          res.status(200).send({ status: true, data: Data });
+        }
+        else{
+            let Data={
+                name: getCollege.name,
+                fullName: getCollege.fullName,
+                logoLink: getCollege.logoLink,
+                interests:"no intern applied for this college"
+            }
             return res.status(200).send({ status: true, data: Data });
         }
+
+    
 
     }
     catch (err) {
         console.log(err)
         res.status(500).send({ status: false, message: "error", err: err.message })
     }
-}
+} 
+
+
 module.exports.createColleges = createColleges
 module.exports.collegeDetails = collegeDetails
 
@@ -88,8 +101,8 @@ module.exports.collegeDetails = collegeDetails
 
 //======================================================================================================================//
 //another method for get api
-/* 
-  const collegeDetails=async (req,res)=>{
+
+/* const collegeDetails=async (req,res)=>{
     try{
     let data=req.query.collegeName
    
@@ -105,18 +118,11 @@ module.exports.collegeDetails = collegeDetails
     delete(details._id);
     details["interests"] = inernDetails;
     res.status(200).send({status:true, data:details})
+    }
 
-    //******************************************************* 
-    // delete(collegeId._id)
-    // let interests=await internModel.find({collegeId:getCollegeName._id, isDeleted: false}).select({name:1, email:1, mobile:1})
-    // if(!interests) return res.status(404).send({status:false, msg:"No such intern found"}) 
-    
-    
-    // res.status(200).send({status:true, data:getCollegeName,interests})
-       
-}
-catch(err){
-    res.status(500).send({ status: false, msg: err.message });
-}
-}   
-  */
+    catch (err) {
+        console.log(err)
+        res.status(500).send({ status: false, message: "error", err: err.message })
+    }
+} 
+     */
